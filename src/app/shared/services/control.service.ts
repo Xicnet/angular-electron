@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -8,22 +9,21 @@ export class ControlService {
   public configObservable = new Subject<number>();
   goUp: Observable<any>;
   goDown: Observable<any>;
+  pollInterval;
 
   constructor() {
     console.log("Controller instantiated");
-    this.init();
+    //this.init();
+    if (!('ongamepadconnected' in window)) {
+      // No gamepad events available, poll instead.
+       this.pollInterval = setInterval(() => this.pollGamepad(), 120);
+     }
   }
-
-
 
   init() {
     console.log("control inited");
-    this.pollGamepadLoop();
-  }
-
-  pollGamepadLoop() {
-    this.pollGamepad();
-    setTimeout(() => this.pollGamepadLoop(), 500);
+    //this.pollGamepadLoop();
+    //this.pollInterval = setInterval(() => this.pollGamepad(), 300); // Will alert every second.
   }
 
   pollGamepad() {

@@ -41,6 +41,8 @@ export class FilesComponent implements OnInit {
     this._pad.configObservable.subscribe(value => {
       if(value==12) this.goUp();
       if(value==13) this.goDown();
+      if(value==0) this.openSelectedDir();
+      if(value==2) this.stop();
     })
   }
 
@@ -115,6 +117,12 @@ export class FilesComponent implements OnInit {
     });
     // reset cursor position to first entry item
   }
+
+  private stop() {
+    console.log("Stop");
+    this._audioService.stop();
+  }
+
   private openFile(path: string) {
     // TODO: Implement file opening
     console.log("Opening file: ", path);

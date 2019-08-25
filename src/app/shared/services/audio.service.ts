@@ -159,7 +159,7 @@ export class AudioService {
     }
   }
 
-  public stop(callback: Function): void {
+  public _stop(callback: Function): void {
     if (this.pizzi) {
       this.pizzi.stop();
       this.isPlaying$.emit(false);
@@ -167,6 +167,14 @@ export class AudioService {
       delete this.pizzi;
     }
     callback();
+  }
+
+  public stop(): void {
+    if (this.pizzi) {
+      this.pizzi.stop();
+      this.isPlaying$.emit(false);
+      delete this.pizzi;
+    }
   }
 
   public toggleReverb(): void {
